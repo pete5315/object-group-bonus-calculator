@@ -32,7 +32,7 @@ const employees = [
   }
 ];
 
-console.log('array of employee data: ',  employees );
+// console.log('array of employee data: ',  employees );
 
 
 // YOU SHOULD NOT NEED TO CHANGE ANYTHING ABOVE THIS POINT
@@ -46,16 +46,61 @@ console.log('array of employee data: ',  employees );
 
 // This function will calculate 1 employee's bonus!
 //
+
+// we initially did this with nested if conditionals for each case--
+// after we got that working we tried to condense using a switch statement
 function calculateIndividualEmployeeBonus( employee ) {  
   // your logic here
   let object = {
-    name: 'Mayella',
-    bonusPercentage: '89068',
-    totalCompensation: '35000',
-    totalBonus: 1
+    name: '',
+    bonusPercentage: 0,
+    totalCompensation: 0,
+    totalBonus: 0
   };
+  // convert strings to numbers
+employee.annualSalary = employee.annualSalary*1
+object.name=employee.name;
+
+  switch(employee.reviewRating) {
+    case 1:
+      object.bonusPercentage=0;
+      break;
+    case 2:
+      object.bonusPercentage=0;
+      break;
+    case 3:
+      object.bonusPercentage=0.04;
+      break;
+    case 4:
+      object.bonusPercentage=0.06;
+      break;
+    case 5:
+      object.bonusPercentage=0.1;
+      break;
+    }
+  if (object.bonusPercentage) {
+    if (employee.employeeNumber.length===4) {
+      object.bonusPercentage += 0.05;      
+    }
+    if (employee.annualSalary>65000) {
+      object.bonusPercentage -= 0.01;
+    }
+    if (object.bonusPercentage > 0.13) {
+      object.bonusPercentage = 0.13;
+    }
+
+  } else if (object.bonusPercentage<0) {
+    object.bonusPercentage = 0;
+  }
+
+  object.totalCompensation = Math.round(employee.annualSalary + employee.annualSalary*object.bonusPercentage);
+  object.totalBonus = Math.round(object.totalCompensation - employee.annualSalary); 
+
+/* 
   object.name=employee.name;
-// if conditionals regarding rating 
+// convert strings to numbers
+employee.annualSalary = employee.annualSalary*1
+  // if conditionals regarding rating 
   if (employee.reviewRating <= 2) {
     object.bonusPercentage = 0;
     object.totalCompensation = employee.annualSalary + object.bonusPercentage;
@@ -63,11 +108,63 @@ function calculateIndividualEmployeeBonus( employee ) {
   }
 
   if (employee.reviewRating === 3) {
-    object.bonusPercentage = 0;
-    object.totalCompensation = employee.annualSalary + object.bonusPercentage;
-    object.totalBonus = object.totalCompensation - employee.annualSalary;
+    object.bonusPercentage = 0.04;
+    if (employee.employeeNumber.length===4) {
+      object.bonusPercentage += 0.05;      
+    }
+    if (employee.annualSalary>65000) {
+      object.bonusPercentage -= 0.01;
+    }
+    if (object.bonusPercentage > 0.13) {
+      object.bonusPercentage = 0.13;
+    } else if (object.bonusPercentage<0) {
+      object.bonusPercentage = 0;
+    }
+    object.totalCompensation = Math.round(employee.annualSalary + employee.annualSalary*object.bonusPercentage);
+    object.totalBonus = Math.round(object.totalCompensation - employee.annualSalary); 
+
   }
-// establishes base bonus 
+
+  if (employee.reviewRating === 4) {
+    object.bonusPercentage = 0.06;
+    if (employee.employeeNumber.length===4) {
+      object.bonusPercentage += 0.05;      
+    }
+    if (employee.annualSalary>65000) {
+      object.bonusPercentage -= 0.01;
+    }
+    if (object.bonusPercentage > 0.13) {
+      object.bonusPercentage = 0.13;
+    } else if (object.bonusPercentage<0) {
+      object.bonusPercentage = 0;
+    }
+    object.totalCompensation = Math.round(employee.annualSalary + employee.annualSalary*object.bonusPercentage);
+    object.totalBonus = Math.round(object.totalCompensation - employee.annualSalary);
+    
+  }
+
+  if (employee.reviewRating === 5) {
+    object.bonusPercentage = 0.1;
+    if (employee.employeeNumber.length===4) {
+      object.bonusPercentage += 0.05;      
+    }
+    if (employee.annualSalary>65000) {
+      object.bonusPercentage -= 0.01;
+    }
+    if (object.bonusPercentage > 0.13) {
+      object.bonusPercentage = 0.13;
+    } else if (object.bonusPercentage<0) {
+      object.bonusPercentage = 0;
+    }
+
+    object.totalCompensation = Math.round(employee.annualSalary + employee.annualSalary*object.bonusPercentage);
+    object.totalBonus = Math.round(object.totalCompensation - employee.annualSalary);
+    
+  }
+ */
+
+
+  // establishes base bonus 
 
 
 // employee number modification
@@ -78,11 +175,13 @@ function calculateIndividualEmployeeBonus( employee ) {
 
 // floor or ceiling
 
-  console.log(object);
+  
   // return new object with bonus results
   return object
 }
 
-for (let person of employees) {
-  calculateIndividualEmployeeBonus(person);
+function runTheCode() {
+  for (let person of employees) {
+    console.log(calculateIndividualEmployeeBonus(person));
+  }
 }
